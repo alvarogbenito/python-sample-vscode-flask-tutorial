@@ -20,9 +20,6 @@ jobs:
     inputs:
       versionSpec: '$(python.version)'
 
-- job: 'Build'
-  pool: default
-  steps:
   - task: PythonScript@0
     inputs:
       scriptSource: 'inline'
