@@ -18,6 +18,7 @@ jobs:
   - task: PythonScript@0
     inputs:
       scriptSource: inline
+      toolPath: true
       script: |
         import sys
         print ('Executing script file is:', str(sys.argv[0]))
@@ -28,6 +29,11 @@ jobs:
         args = parser.parse_args()
         print ('Hello ', args.world)
       arguments: --world Venus
+
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.x'
+      addToPath: true
 
 
 
