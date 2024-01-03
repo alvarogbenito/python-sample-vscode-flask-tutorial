@@ -1,0 +1,33 @@
+# Python package
+# Create and test a Python package on multiple Python versions.
+# Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/python
+
+trigger:
+- main
+jobs:
+- job: 'Scripts'
+  pool: default
+  steps:
+  - task: PythonScript@0
+    inputs:
+      scriptSource: 'inline'
+      script: |
+        print("Hello world")
+        print("Hello World 2")
+  - task: PythonScript@0
+    inputs:
+      scriptSource: inline
+      script: |
+        import sys
+        print ('Executing script file is:', str(sys.argv[0]))
+        print ('The arguments are:', str(sys.argv))
+        import argparse
+        parser = argparse.ArgumentParser()
+        parser.add_argument("--world", help="Provide the name of the world to greet.")
+        args = parser.parse_args()
+        print ('Hello ', args.world)
+      arguments: --world Venus
+
+
+
