@@ -18,7 +18,7 @@ jobs:
   - task: PythonScript@0
     inputs:
       scriptSource: inline
-      toolPath: true
+      pythonInterpreter: C:\Users\alvaro.gbenito\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\python.exe
       script: |
         import sys
         print ('Executing script file is:', str(sys.argv[0]))
