@@ -16,22 +16,17 @@ jobs:
         print("Hello world")
         print("Hello World 2")
 
-  - task: PythonScript@0
-    inputs:
-      scriptSource: 'inline'
-      script: |
-        import sys
-        print ('Executing script file is:', str(sys.argv[0]))
-        print ('The arguments are:', str(sys.argv))
-        import argparse
-        parser = argparse.ArgumentParser()
-        parser.add_argument("--world", help="Provide the name of the world to greet.")
-        args = parser.parse_args()
-        print ('Hello ', args.world)
-      arguments: '--world Venus'
-      pythonInterpreter: 'C:\Users\alvaro.gbenito\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\python.exe'
-      workingDirectory: '_work'
-
+  - script: python -m pip install --upgrade pip setuptools wheel
+  - script: pip install -r requirements.txt
+  - script: |
+      python -m pip install flake8
+      flake8 .
+    displayName: 'Run lint tests'
+  - script: |
+      pip install pytest pytest-azurepipelines
+      pip install pytest-cov
+      pytest --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml
+    displayName: 'pytest'
 
 
 
